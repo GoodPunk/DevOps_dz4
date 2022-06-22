@@ -14,4 +14,4 @@
 
   roles:
     - common
-    - build
+    - prod
