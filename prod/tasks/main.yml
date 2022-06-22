@@ -1,0 +1,16 @@
+---
+# tasks file for prod
+  - name: Ensure Tomcat  package is present
+    apt:
+      name: tomcat9
+      state: present
+
+  - name: Start service Tomcat, if not started
+    service:
+      name: tomcat9
+      state: started
+
+  - name: Synchronization file
+    synchronize:
+      src: /tmp/hello-1.0.war
+      dest: /var/lib/tomcat9/webapps

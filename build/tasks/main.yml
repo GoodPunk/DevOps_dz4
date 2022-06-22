@@ -1,0 +1,25 @@
+---
+# tasks file for build
+  tasks:
+  - name: update package
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Ensure maven package is present
+    apt:
+      name: maven
+      state: present
+
+  - name: git clone app boxfuse
+    git:
+      repo: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello.git'
+      dest: /home/ubuntu/app
+      clone: yes
+
+  - name: building app
+    shell: mvn -f /home/ubuntu/app/pom.xml package
+
+  - name: Synchronization of src on the control machine to dest on the remote hosts
+    synchronize:
+      mode: pull
+      src: /home/ubuntu/app/target/hello-1.0.war
+      dest: /tmp/hello-1.0.war
