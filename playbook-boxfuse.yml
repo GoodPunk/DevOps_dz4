@@ -1,0 +1,17 @@
+---
+- name: build server
+  hosts: build-srv
+  become: yes
+
+  roles:
+    - common
+    - build
+
+
+- name: prod server
+  hosts: prod-srv
+  become: yes
+
+  roles:
+    - common
+    - build
